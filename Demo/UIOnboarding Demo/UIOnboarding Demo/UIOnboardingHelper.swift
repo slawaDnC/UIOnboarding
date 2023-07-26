@@ -25,18 +25,20 @@ struct UIOnboardingHelper {
             .foregroundColor: UIColor.init(named: "camou") ?? UIColor.init(red: 0.654, green: 0.618, blue: 0.494, alpha: 1.0)
         ])
     }
-    
+
     static func setUpFeatures() -> Array<UIOnboardingViewConfiguration.Feature> {
         [
-            .plain(.init(
-                icon: .init(named: "feature-1"),
-                title: "Search until found",
-                description: "Over a hundred insignia of the Swiss Armed Forces – each redesigned from the ground up.")
+            .checkBox(
+                .init(
+                    icon: .init(systemName: "bus"),
+                    title: "Tourism"
+                )
             ),
-            .plain(.init(
-                icon: .init(named: "feature-2"),
-                title: "Enlist prepared",
-                description: "Practice with the app and pass the rank test on the first run.")
+            .checkBox(
+                .init(
+                    icon: .init(systemName: "cup.and.saucer.fill"),
+                    title: "Catering"
+                )
             ),
             .plain(.init(
                 icon: .init(named: "feature-3"),
