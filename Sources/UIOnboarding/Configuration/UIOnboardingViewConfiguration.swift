@@ -1,6 +1,6 @@
 //
 //  UIOnboardingViewConfiguration.swift
-//  UIOnboarding Demo
+//  UIOnboarding
 //
 //  Created by Vyacheslav on 12.07.2023.
 //
@@ -15,6 +15,12 @@ public struct UIOnboardingViewConfiguration {
         case checkBox(UIOnboardingFeatureCheckBox)
     }
 
+    // MARK: - TableSelectingType
+    public enum TableSelectingType {
+        case single
+        case multiple
+    }
+
     // MARK: - Properties
     public var appIcon: UIImage
     public var firstTitleLine: NSMutableAttributedString
@@ -23,6 +29,10 @@ public struct UIOnboardingViewConfiguration {
     public var textViewConfiguration: UIOnboardingTextViewConfiguration? = nil
     public var buttonConfiguration: UIOnboardingButtonConfiguration
 
+    public var defaultSelection: IndexPath
+    public var selectingType: TableSelectingType
+
+
     // MARK: - Init
     public init(
         appIcon: UIImage,
@@ -30,7 +40,9 @@ public struct UIOnboardingViewConfiguration {
         secondTitleLine: NSMutableAttributedString,
         features: [Feature],
         textViewConfiguration: UIOnboardingTextViewConfiguration? = nil,
-        buttonConfiguration: UIOnboardingButtonConfiguration
+        buttonConfiguration: UIOnboardingButtonConfiguration,
+        defaultSelection: IndexPath = .init(row: 0, section: 0),
+        selectingType: TableSelectingType = .single
     ) {
         self.appIcon = appIcon
         self.firstTitleLine = firstTitleLine
@@ -38,5 +50,7 @@ public struct UIOnboardingViewConfiguration {
         self.features = features
         self.textViewConfiguration = textViewConfiguration
         self.buttonConfiguration = buttonConfiguration
+        self.defaultSelection = defaultSelection
+        self.selectingType = selectingType
     }
 }

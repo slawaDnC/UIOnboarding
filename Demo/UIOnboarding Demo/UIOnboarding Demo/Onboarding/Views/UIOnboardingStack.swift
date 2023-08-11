@@ -97,6 +97,9 @@ final class UIOnboardingStack: UIStackView {
         setCustomSpacing(traitCollection.horizontalSizeClass == .regular ? 40 : UIScreenType.setUpTitleSpacing(), after: onboardingTitleLabelStack)
         
         addArrangedSubview(featuresList)
+
+        // configure table selecting type
+        selectedCells = [configuration.defaultSelection]
     }
     
     func animate(completion: (() -> Void)?) {
@@ -201,11 +204,17 @@ extension UIOnboardingStack: UITableViewDelegate {
         }
 
         isCellsAnimated = false
-        if selectedCells.contains(indexPath) {
-            selectedCells.remove(indexPath)
-            return
-        }
 
-        selectedCells.insert(indexPath)
+        switch configuration.selectingType {
+            case .single:
+                selectedCells = [indexPath]
+            case .multiple:
+                if selectedCells.contains(indexPath) {
+                    selectedCells.remove(indexPath)
+                    return
+                }
+
+                selectedCells.insert(indexPath)
+        }
     }
 }
