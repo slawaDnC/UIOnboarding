@@ -14,10 +14,10 @@ public class UIOnboardingViewController: UIViewController {
     }
     var configuration: UIOnboardingViewConfiguration {
         didSet {
-            self.view.subviews.forEach { $0.removeFromSuperview() }
+            self.onboardingStackView.configuration = configuration
 
-            configureScrollView()
-            setUpTopOverlay()
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
         }
     }
 
