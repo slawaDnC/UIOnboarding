@@ -8,6 +8,20 @@
 import UIKit
 
 public class UIOnboardingViewController: UIViewController {
+    // MARK: - Public Properties
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return device.userInterfaceIdiom == .pad ? .all : .portrait
+    }
+    var configuration: UIOnboardingViewConfiguration {
+        didSet {
+            self.view.subviews.forEach { $0.removeFromSuperview() }
+
+            configureScrollView()
+            setUpTopOverlay()
+        }
+    }
+
+    // MARK: - Private Properties
     private var onboardingScrollView: UIScrollView!
     private var onboardingStackView: UIOnboardingStack!
     private var onboardingStackViewWidth: NSLayoutConstraint!
@@ -40,10 +54,6 @@ public class UIOnboardingViewController: UIViewController {
     private var hasScrolledToBottom: Bool = false
     private var needsUIRefresh: Bool = true
 
-    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return device.userInterfaceIdiom == .pad ? .all : .portrait
-    }
-    private let configuration: UIOnboardingViewConfiguration
     private let device: UIDevice
     private let screen: UIScreen
     private let withPresentAnimation: Bool
