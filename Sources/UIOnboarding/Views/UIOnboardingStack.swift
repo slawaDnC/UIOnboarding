@@ -14,11 +14,14 @@ protocol UIOnboardingStackDelegate: AnyObject {
 
 // MARK: - UIOnboardingStack
 final class UIOnboardingStack: UIStackView {
-    private var spacerView: UIView!
-    private var onboardingIcon: OnboardingIcon!
-    private(set) var onboardingTitleLabelStack: UIOnboardingTitleLabelStack!
-    private let screen: UIScreen
+    // MARK: - Public Properties
+    public var configuration: UIOnboardingViewConfiguration {
+        didSet {
+            self.featuresList.reloadData()
+        }
+    }
 
+    // MARK: - Private Properties
     private var selectedCells: Set<IndexPath> = .init() {
         didSet {
             delegate?.didSelectRow(at: selectedCells)
@@ -27,6 +30,11 @@ final class UIOnboardingStack: UIStackView {
     }
     private var isCellsAnimated = true
 
+    // MARK: - Private UI
+    private var spacerView: UIView!
+    private var onboardingIcon: OnboardingIcon!
+    private(set) var onboardingTitleLabelStack: UIOnboardingTitleLabelStack!
+    private let screen: UIScreen
     private(set) lazy var featuresList: UIIntrinsicTableView = {
         let featuresTableView: UIIntrinsicTableView = .init(frame: .zero, style: .plain)
 
@@ -54,8 +62,6 @@ final class UIOnboardingStack: UIStackView {
 
         return featuresTableView
     }()
-
-    private let configuration: UIOnboardingViewConfiguration
 
     // MARK: - Dependencies
     weak var delegate: UIOnboardingStackDelegate?
