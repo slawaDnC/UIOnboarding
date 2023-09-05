@@ -12,7 +12,7 @@ public class UIOnboardingViewController: UIViewController {
     public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return device.userInterfaceIdiom == .pad ? .all : .portrait
     }
-    var configuration: UIOnboardingViewConfiguration {
+    public var configuration: UIOnboardingViewConfiguration {
         didSet {
             self.view.subviews.forEach { $0.removeFromSuperview() }
 
