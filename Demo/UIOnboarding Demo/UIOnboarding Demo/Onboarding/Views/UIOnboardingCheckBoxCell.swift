@@ -35,9 +35,11 @@ final class UIOnboardingCheckBoxCell: UITableViewCell {
             label.maximumContentSizeCategory = .accessibilityLarge
         }
         label.adjustsFontForContentSizeCategory = true
+        label.translatesAutoresizingMaskIntoConstraints = false
 
         return label
     }()
+    private var contentViewHeight: NSLayoutConstraint!
     private var stackLeading: NSLayoutConstraint!
     private var stackBottom: NSLayoutConstraint!
 
@@ -70,6 +72,7 @@ final class UIOnboardingCheckBoxCell: UITableViewCell {
         super.prepareForReuse()
 
         accessoryType = .none
+        configure()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -98,10 +101,44 @@ extension Cell {
         descriptionLabel.text = feature.description
         descriptionLabel.accessibilityLabel = feature.description
     }
+
+    func configureAlternativeLayout() {
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+
+        selectionStyle = .none
+
+        isAccessibilityElement = false
+        titleLabel.isAccessibilityElement = true
+        titleLabel.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: traitCollection.horizontalSizeClass == .regular ? 20 : 17, weight: .semibold))
+
+        descriptionLabel.isAccessibilityElement = true
+        descriptionLabel.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: traitCollection.horizontalSizeClass == .regular ? 20 : 17, weight: .light))
+
+        labelStack = .init(frame: .zero)
+        labelStack.axis = .vertical
+        labelStack.addArrangedSubview(titleLabel)
+        labelStack.addArrangedSubview(descriptionLabel)
+        labelStack.setCustomSpacing(0.8, after: titleLabel)
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
+
+        contentView.addSubview(featureGlyph)
+        contentView.addSubview(labelStack)
+
+        featureGlyph.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4).isActive = true
+        featureGlyph.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        featureGlyph.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -4).isActive = true
+
+        labelStack.centerYAnchor.constraint(equalTo: featureGlyph.centerYAnchor, constant: 0).isActive = true
+        labelStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+
+        stackLeading = labelStack.leadingAnchor.constraint(equalTo: featureGlyph.trailingAnchor, constant: traitCollection.horizontalSizeClass == .regular ? 32 : 18)
+        stackLeading.isActive = true
+    }
 }
 
 // MARK: - Private Methods
-private extension Cell {
+extension Cell {
     func configure() {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
@@ -137,7 +174,5 @@ private extension Cell {
         featureGlyph.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 4).isActive = true
         featureGlyph.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         featureGlyph.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -4).isActive = true
-
-        contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
     }
 }

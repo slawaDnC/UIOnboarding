@@ -198,6 +198,8 @@
 			dependencies = (
 			);
 			name = "UIOnboarding Demo";
+			packageProductDependencies = (
+			);
 			productName = "UIOnboarding Demo";
 			productReference = 0BD28DB227BEDE6B00D768E6 /* UIOnboarding Demo.app */;
 			productType = "com.apple.product-type.application";
@@ -226,6 +228,8 @@
 				Base,
 			);
 			mainGroup = 0BD28DA927BEDE6B00D768E6;
+			packageReferences = (
+			);
 			productRefGroup = 0BD28DB327BEDE6B00D768E6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

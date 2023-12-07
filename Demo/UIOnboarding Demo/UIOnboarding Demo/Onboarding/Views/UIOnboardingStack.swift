@@ -47,9 +47,6 @@ final class UIOnboardingStack: UIStackView {
             forCellReuseIdentifier: UIOnboardingCheckBoxCell.reuseIdentifier
         )
 
-        featuresTableView.rowHeight = UITableView.automaticDimension
-        featuresTableView.estimatedRowHeight = 44
-        
         featuresTableView.delegate = self
         featuresTableView.dataSource = self
         
@@ -178,12 +175,18 @@ extension UIOnboardingStack: UITableViewDataSource {
         else {
             preconditionFailure()
         }
-
+        
         cell.set(item)
         if selectedCells.contains(indexPath) {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
+        }
+        
+        if item.description == nil {
+            cell.configureAlternativeLayout()
+        } else {
+            cell.configure()
         }
 
         return cell
@@ -192,6 +195,10 @@ extension UIOnboardingStack: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension UIOnboardingStack: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        tableView.estimatedRowHeight
+    }
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if !isCellsAnimated {
             return

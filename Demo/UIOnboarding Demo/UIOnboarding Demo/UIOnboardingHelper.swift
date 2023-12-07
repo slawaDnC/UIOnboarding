@@ -40,11 +40,18 @@ struct UIOnboardingHelper {
                     title: "Catering"
                 )
             ),
-            .plain(.init(
-                icon: .init(named: "feature-3"),
-                title: "#teamarmee",
-                description: "Add name tags of your comrades or cadre. Insignia automatically keeps every name tag you create in iCloud.")
-            )
+//            .checkBox(
+//                .init(
+//                    icon: .init(systemName: "cup.and.saucer"),
+//                    title: "Dummy title",
+//                    description: "Dummy description"
+//                )
+//            ),
+//            .plain(.init(
+//                icon: .init(named: "feature-3"),
+//                title: "#teamarmee",
+//                description: "Add name tags of your comrades or cadre. Insignia automatically keeps every name tag you create in iCloud.")
+//            )
         ]
     }
     
